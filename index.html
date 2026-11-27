@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2027 大阪潮玩畢旅</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="2027 大學生畢業旅行：大阪五天四夜，40 人團，心齋橋連住四晚，南堀江潮牌、五間風格咖啡與燒肉夜生活。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- =====================================================================
+  這個網站是「單一網址、多個頁面」：
+  每個 <section class="page" data-page="..."> 是一頁，網址 #/itinerary 這類路徑決定顯示哪一頁。
+  頁面內容由 js/app.js 讀 js/data.js、js/tour.js 產生；這裡只放骨架。
+====================================================================== -->
+
+<!-- ========== 頁首（白底、固定在上方） ========== -->
+<header class="site-header" id="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="#/" aria-label="回首頁">
+      <span class="brand__logo" data-brand-logo></span>
+      <span class="brand__name" data-brand-name></span>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="頁面導覽"></nav>
+    <a class="header-cta" href="#/price">出團日期與價格</a>
+    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="mobile-menu">
+      <span class="menu-btn__bars" aria-hidden="true"></span><span class="menu-btn__label">選單</span>
+    </button>
+  </div>
+  <nav class="mobile-menu" id="mobile-menu" aria-label="頁面導覽（手機）" hidden></nav>
+</header>
+
+<!-- ========== 捲動後出現的行程列（同吉光的深灰列） ========== -->
+<div class="tour-bar" id="tour-bar" aria-hidden="true">
+  <div class="wrap tour-bar__inner">
+    <span class="tour-bar__title" id="tour-bar-title"></span>
+    <span class="tour-bar__date" id="tour-bar-date"></span>
+    <a class="btn-outline btn-outline--sm" id="tour-bar-cta" href="#/price">出團日期與價格</a>
+  </div>
+</div>
+
+<main id="app">
+
+  <!-- ==================== 首頁 ==================== -->
+  <section class="page" data-page="home" id="page-home">
+    <div class="hero" id="hero">
+      <div class="hero__media" id="hero-media"></div>
+      <div class="wrap hero__inner">
+        <p class="hero__crumb" id="hero-crumb"></p>
+        <h1 class="hero__title" id="hero-title"></h1>
+        <p class="hero__tagline" id="hero-tagline"></p>
+        <p class="hero__dates" id="hero-dates"></p>
+        <nav class="hero__actions" id="hero-actions" aria-label="快速前往"></nav>
+      </div>
+      <span class="photo-note" id="hero-photo-note"></span>
+    </div>
+
+    <div class="service" id="service"></div>
+
+    <div class="section">
+      <div class="wrap">
+        <h2 class="section-title">行程特色</h2>
+        <p class="section-lead" id="features-lead"></p>
+        <div class="features" id="features-grid"></div>
+        <div class="stats" id="stats" aria-label="行程收錄店家數"></div>
+      </div>
+    </div>
+
+    <div class="section section--wash">
+      <div class="wrap">
+        <h2 class="section-title">五天行程一覽</h2>
+        <div class="day-links" id="day-links"></div>
+        <p class="center"><a class="btn-outline" href="#/itinerary">看完整每日行程</a></p>
+      </div>
+    </div>
+
+    <div class="signup" data-signup></div>
+  </section>
+
+  <!-- ==================== 每日行程 ==================== -->
+  <section class="page" data-page="itinerary" id="page-itinerary" hidden>
+    <div class="page-head" data-page-head="itinerary"></div>
+    <div class="section">
+      <div class="wrap">
+        <div class="season-switch" data-season-switch></div>
+        <div class="itinerary-tools">
+          <p class="tip" id="season-tip"></p>
+          <button type="button" class="text-btn" id="toggle-days">全部展開</button>
+        </div>
+        <div class="days" id="days"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 出團日期與價格 ==================== -->
+  <section class="page" data-page="price" id="page-price" hidden>
+    <div class="page-head" data-page-head="price"></div>
+    <div class="section">
+      <div class="wrap">
+        <h2 class="section-title">出團日期</h2>
+        <div class="departures" id="departures" role="list"></div>
+        <p class="note center" id="departures-note"></p>
+      </div>
+    </div>
+
+    <div class="section section--wash">
+      <div class="wrap">
+        <h2 class="section-title">費用說明</h2>
+        <p class="section-lead">每人費用明細。可以切換廉航與傳統航空兩種方案比較。</p>
+        <div class="segmented" role="group" aria-label="航空方案">
+          <button type="button" data-plan="lcc" aria-pressed="true">廉航超值方案</button>
+          <button type="button" data-plan="fsc" aria-pressed="false">傳統航空方案</button>
+        </div>
+        <div class="cost">
+          <table class="breakdown">
+            <thead><tr><th>項目</th><th class="num">每人費用</th></tr></thead>
+            <tbody id="breakdown"></tbody>
+          </table>
+          <aside class="totals" aria-label="每人合計">
+            <span class="totals__label">每人合計</span>
+            <b class="totals__twd" id="total-twd"></b>
+            <dl class="totals__rows">
+              <dt>日圓</dt><dd id="total-jpy"></dd>
+              <dt id="cap-label"></dt><dd id="total-buffer"></dd>
+            </dl>
+            <p class="note" id="rate-label"></p>
+          </aside>
+        </div>
+        <div class="includes" id="includes"></div>
+      </div>
+    </div>
+
+    <div class="signup" data-signup></div>
+  </section>
+
+  <!-- ==================== 住宿交通 ==================== -->
+  <section class="page" data-page="stay" id="page-stay" hidden>
+    <div class="page-head" data-page-head="stay"></div>
+    <div class="section">
+      <div class="wrap">
+        <h2 class="section-title">住宿飯店</h2>
+        <div class="hotel" id="hotel"></div>
+      </div>
+    </div>
+    <div class="section section--wash">
+      <div class="wrap">
+        <h2 class="section-title">交通方式</h2>
+        <div class="transport" id="transport"></div>
+        <div class="table-scroll" id="taxi"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 店家一覽 ==================== -->
+  <section class="page" data-page="spots" id="page-spots" hidden>
+    <div class="page-head" data-page-head="spots"></div>
+    <div class="section">
+      <div class="wrap">
+        <div class="filters">
+          <div class="filters__cats" id="spot-cats"></div>
+          <div class="filters__right">
+            <select class="field" id="spot-day" aria-label="依天數篩選"></select>
+            <input class="field" id="spot-search" type="search" placeholder="搜尋店名或地區" aria-label="搜尋店名或地區">
+          </div>
+        </div>
+        <p class="note" id="spot-count" aria-live="polite"></p>
+        <div class="spots" id="spots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 參團說明 ==================== -->
+  <section class="page" data-page="notes" id="page-notes" hidden>
+    <div class="page-head" data-page-head="notes"></div>
+    <div class="section">
+      <div class="wrap">
+        <div class="season-switch" data-season-switch></div>
+        <div class="notes" id="notes"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ========== 頁尾 ========== -->
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <div class="site-footer__brand">
+      <span class="brand__logo" data-brand-logo></span>
+      <div>
+        <h3 data-brand-name></h3>
+        <p id="footer-slogan"></p>
+        <p class="muted" id="footer-course"></p>
+      </div>
+    </div>
+    <nav class="site-footer__nav" id="footer-nav" aria-label="頁尾導覽"></nav>
+    <div class="site-footer__note">
+      <h3>資料說明</h3>
+      <p class="muted" id="footer-source"></p>
+      <p class="muted">氣候為歷年平均，不是天氣預報。費用為預算試算，實際以訂位報價為準。</p>
+    </div>
+  </div>
+</footer>
+
+<button type="button" class="to-top" id="to-top" aria-label="回到頁首"></button>
+
+<script src="js/data.js"></script>
+<script src="js/tour.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
