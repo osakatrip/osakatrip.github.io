@@ -124,7 +124,7 @@
       el.innerHTML = `<span class="season-switch__label">選擇梯次</span>` + Object.keys(seasonConfig).map((key) => `
         <button type="button" data-season="${key}" aria-pressed="${state.season === key}">
           <b>${esc(seasonConfig[key].name)}</b><span>${esc(seasonConfig[key].fullDateLabel)}</span>
-        </button>`).join('');
+        </button>`).join('') + `<p class="season-switch__note">兩個梯次行程內容相同，只差日期與天氣。</p>`;
     });
     $$('[data-season-switch] [data-season]').forEach((b) => b.addEventListener('click', () => setSeason(b.dataset.season)));
   }
@@ -134,6 +134,7 @@
     state.season = season;
     $$('[data-season]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.season === season)));
     renderDepartures();
+    renderPicks();
     renderSeasonLabels();
     renderItineraryDates();
     renderSeasonNotes();
@@ -141,7 +142,7 @@
 
   function renderSeasonLabels() {
     const label = seasonConfig[state.season].fullDateLabel;
-    $('#hero-dates').textContent = `${seasonConfig[state.season].name}｜${label}｜${TOUR.groupSize} 人團`;
+    $('#hero-dates').textContent = `5 天 4 夜｜${TOUR.groupSize} 人團｜${Object.keys(DEPARTURES).length} 個出發梯次`;
     $('#tour-bar-date').textContent = `${seasonConfig[state.season].name}｜${label}`;
   }
 
@@ -162,6 +163,31 @@
     $('#hero-tagline').textContent = TOUR.tagline;
     $('#hero-actions').innerHTML = PAGES.filter((p) => p.id !== 'home')
       .map((p) => `<a class="btn-ghost" href="${pageHref(p.id)}">${esc(p.nav)}</a>`).join('');
+  }
+
+  /** 首頁「選擇出發梯次」卡片 */
+  function renderPicks() {
+    const price = startingPriceTwd();
+    $('#picks').innerHTML = Object.keys(DEPARTURES).map((key) => {
+      const d = DEPARTURES[key];
+      const selected = state.season === key;
+      return `
+        <article class="pick ${selected ? 'is-selected' : ''}">
+          <p class="pick__head">
+            <span class="tag tag--${esc(d.statusType)}">${esc(d.badge)}</span>
+            ${selected ? '<span class="pick__current">目前顯示</span>' : ''}
+          </p>
+          <h3 class="pick__title">${esc(d.title)}</h3>
+          <p class="pick__date">${esc(seasonConfig[key].fullDateLabel)}</p>
+          <dl class="pick__facts">
+            <div><dt>平均氣溫</dt><dd>${esc(d.temp)}</dd></div>
+            <div><dt>降雨機率</dt><dd>${esc(d.rain)}</dd></div>
+            <div><dt>每人團費</dt><dd><b>${twd(price.value)}</b> 起</dd></div>
+          </dl>
+          <p class="pick__pitch">${esc(d.pitch)}</p>
+          <button type="button" class="${selected ? 'btn-solid' : 'btn-outline'} pick__btn" data-pick="${key}">看${esc(seasonConfig[key].name)}行程</button>
+        </article>`;
+    }).join('');
   }
 
   function renderService() {
@@ -550,6 +576,13 @@
     renderSeasonSwitches();
 
     renderHero();
+    renderPicks();
+    $('#picks').addEventListener('click', (e) => {
+      const b = e.target.closest('[data-pick]');
+      if (!b) return;
+      setSeason(b.dataset.pick);
+      go('#/itinerary');
+    });
     renderService();
     renderFeatures();
     renderDayLinks();

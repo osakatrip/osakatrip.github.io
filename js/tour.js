@@ -87,10 +87,17 @@ const FEATURES = [
   { day: 'Day 4', title: '黑膠唱片與昭和老街', text: 'TOWER RECORDS 黑膠館＋中崎町古著。' },
 ];
 
-/* ---------- 出團梯次（季節設定在 data.js 的 seasonConfig） ---------- */
+/* ---------- 出團梯次（季節設定在 data.js 的 seasonConfig） ----------
+ * 兩個梯次走同一套行程（data.js 的 itineraryData 只有一份），差別只有日期、天氣與穿搭提醒。
+ * title / temp / rain 取自原網站「選擇出團檔期」卡片上的文字。 */
 const DEPARTURES = {
   winter: {
     kind: '首選主力團',
+    title: '冬日街拍潮玩首選團',
+    badge: '主推梯次',
+    temp: '1°C – 9°C',
+    rain: '約 26%（乾燥）',
+    pitch: '春節後平日離峰，乾冷晴朗，最適合潮牌穿搭街拍。',
     status: '報名中',
     statusType: 'open',
     returnDate: '2027/02/19（五）',
@@ -99,6 +106,11 @@ const DEPARTURES = {
   },
   summer: {
     kind: '梅雨備案團',
+    title: '夏日地下街避雨潮玩團',
+    badge: '備案梯次',
+    temp: '20°C – 32°C',
+    rain: '約 45%（梅雨末）',
+    pitch: '檔期需要調整時的備選；下雨就走地下街和有頂商店街。',
     status: '備案',
     statusType: 'backup',
     returnDate: '2027/07/02（五）',

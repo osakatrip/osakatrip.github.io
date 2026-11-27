@@ -323,6 +323,31 @@ button { font: inherit; }
 .photo-note svg { width: 16px; height: 16px; color: var(--main); }
 .photo-note code { font: 12px ui-monospace, SFMono-Regular, Consolas, monospace; }
 
+/* ---------- 首頁：選擇出發梯次 ---------- */
+.section--pick { padding-bottom: 72px; }
+.picks { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.pick {
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 28px 30px; border: 1px solid var(--line); border-radius: 3px; background: #fff;
+  transition: border-color .2s, box-shadow .2s;
+}
+.pick.is-selected { border-color: var(--main); box-shadow: inset 0 0 0 1px var(--main), var(--shadow); }
+.pick__head { display: flex; align-items: center; justify-content: space-between; margin: 0; }
+.pick__current { font-size: 13px; color: var(--main-ink); }
+.pick__current::before { content: "●"; margin-right: 6px; font-size: 9px; vertical-align: 2px; color: var(--main); }
+.pick__title { font: 700 24px/1.4 var(--serif); letter-spacing: 0.04em; }
+.pick__date { margin: 0; font: 500 16px var(--serif); color: var(--ink-2); }
+.pick__facts {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
+  margin: 6px 0; padding: 14px 0; border-top: 1px dashed var(--line); border-bottom: 1px dashed var(--line);
+}
+.pick__facts dt { font-size: 13px; color: var(--ink-3); }
+.pick__facts dd { margin: 0; font: 600 16px/1.5 var(--serif); }
+.pick__facts dd b { font-size: 20px; color: var(--accent-ink); }
+.pick__pitch { margin: 0; font-size: 15px; color: var(--ink-2); }
+.pick__btn { margin-top: auto; width: 100%; }
+.season-switch__note { flex-basis: 100%; margin: 2px 0 0; text-align: center; font-size: 13.5px; color: var(--ink-3); }
+
 /* ---------- 服務亮點橫幅（對應吉光的「貼心服務」） ---------- */
 .service { background: var(--main-wash); border-top: 1px solid #dbe3e9; border-bottom: 1px solid #dbe3e9; }
 .service__inner { display: flex; align-items: center; justify-content: center; gap: 44px; padding-top: 34px; padding-bottom: 34px; }
@@ -664,6 +689,13 @@ td.num small { display: block; font: 400 13px var(--sans); color: var(--ink-3); 
   .section-title::before, .section-title::after { flex-basis: 48px; }
   .section-lead { margin: -12px auto 32px; }
 
+  .picks { grid-template-columns: 1fr; gap: 20px; }
+  .pick { padding: 22px 20px; }
+  .pick__title { font-size: 21px; }
+  .pick__facts dd { font-size: 15px; }
+  .pick__facts dd b { font-size: 17px; }
+  .pick__facts { grid-template-columns: 1fr 1fr; }
+  .pick__facts div:last-child { grid-column: 1 / -1; }
   .service__inner { flex-direction: column; gap: 16px; padding-top: 28px; padding-bottom: 28px; }
   .service__title { padding: 0 0 14px; border-right: 0; border-bottom: 1px solid var(--main); }
   .service__title b { font-size: 24px; }
