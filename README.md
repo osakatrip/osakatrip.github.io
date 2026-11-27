@@ -52,7 +52,7 @@ logo 和旅行社名稱在 `tour.js` 最上面的 `BRAND`：`agencyName`、`logo
 
 ## 上線（報告時給大家看）
 
-- **正式網址（GitHub Pages）**：https://chenhongchen1006.github.io/osaka-trip/ ，任何人都能看，沒有 Claude 的橫條。改完檔案推到 GitHub 的 main 分支，約一分鐘後自動更新。
+- **正式網址（GitHub Pages）**：https://osakatrip.github.io/ ，任何人都能看，沒有 Claude 的橫條。改完檔案推到 GitHub 的 main 分支，約一分鐘後自動更新。
 - **Claude 預覽連結**：https://claude.ai/artifact/Q1GDF98WWeg45e41Eg63Gx ，已設成「知道連結的人都能看」，不用登入。檔案改完要請 Claude 重新發布才會更新。
 - **Netlify Drop**：到 app.netlify.com/drop，把整個 `osaka-trip-site` 資料夾拖進去，會給一個網址。最快。
 - **GitHub Pages**：把資料夾放到 GitHub repository，在 Settings → Pages 開啟。
