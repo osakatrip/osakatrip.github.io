@@ -422,6 +422,24 @@ button { font: inherit; }
 .backup p { margin: 8px 0 0; padding: 10px 14px; border-radius: 3px; background: var(--cream); font-size: 14.5px; color: var(--ink-2); }
 .backup[open] { flex-basis: 100%; }
 
+/* 「查看詳細時間表」這類收合區 */
+.more { margin-top: 4px; }
+.more > summary {
+  display: flex; justify-content: center; list-style: none; cursor: pointer;
+  width: max-content; margin: 0 auto; padding: 10px 26px; min-height: 44px;
+  border: 1px solid var(--main); border-radius: 5px; background: #fff;
+  color: var(--main-ink); font: 500 15px/1.5 var(--sans); letter-spacing: 0.06em;
+}
+.more > summary::-webkit-details-marker { display: none; }
+.more > summary:hover { background: var(--main-wash); }
+.more > summary::after { content: "＋"; margin-left: 8px; }
+.more[open] > summary::after { content: "－"; }
+.more .more__close, .more[open] .more__open { display: none; }
+.more[open] .more__close { display: inline; }
+.more[open] > summary { margin-bottom: 8px; }
+.more--left > summary { margin-left: 0; }
+.more .data-table { margin-top: 18px; }
+
 .rest { margin-top: 24px; padding: 18px 22px; border-left: 3px solid var(--main); border-radius: 3px; background: var(--main-wash); }
 .rest b { font: 600 16px/1.6 var(--serif); color: var(--main-ink); }
 .rest p { margin: 6px 0 0; font-size: 15px; color: var(--ink-2); }
@@ -533,10 +551,10 @@ td.num small { display: block; font: 400 13px var(--sans); color: var(--ink-3); 
 .hotel__name { margin: 4px 0 12px; font: 700 28px/1.4 var(--serif); }
 .hotel__info p { margin: 14px 0; color: var(--ink-2); }
 
-.transport { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 48px; }
+.transport { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 36px; align-items: start; }
 .transport__item { padding: 26px; border-top: 3px solid var(--main); border-radius: 3px; background: #fff; box-shadow: var(--shadow); }
 .transport__item h3 { margin: 0 0 10px; font: 700 19px var(--serif); }
-.transport__item p { margin: 0; font-size: 15.5px; color: var(--ink-2); }
+.transport__item > p { margin: 0 0 8px; font-size: 16px; color: var(--ink-2); }
 
 .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .data-table { width: 100%; min-width: 560px; border-collapse: collapse; background: #fff; box-shadow: var(--shadow); }

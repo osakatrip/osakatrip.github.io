@@ -20,7 +20,7 @@ const TOUR = {
   title: '2027 大阪潮玩畢旅五天四夜',
   breadcrumb: ['日本旅遊', '關西', '大學生畢業旅行'],
   tagline: '避開觀光人潮・日系街頭潮牌・五天不重複風格咖啡・高 CP 燒肉夜生活',
-  lead: '全團統一入住「心齋橋・長堀橋」核心商圈，每天 11:00 從容出發，傍晚先回飯店放戰利品再出門吃晚餐。',
+  lead: '住心齋橋、每天 11:00 出發，逛潮牌、喝咖啡、吃燒肉。',
   groupSize: 40,
   budgetCapJpy: 200000,     // 原網站的預算上限
   jpyPerTwd: 4.8,           // 原網站的匯率：1 台幣 = 4.8 日圓
@@ -34,11 +34,11 @@ const TOUR = {
 /* ---------- 頁面（網址 #/id；nav 是選單文字，title / lead 是每頁上方的標題與說明） ---------- */
 const PAGES = [
   { id: 'home',      nav: '首頁' },
-  { id: 'itinerary', nav: '每日行程',       title: '每日行程',       en: 'Itinerary', lead: '五天四夜都從心齋橋出發。點開每一天，可以看時間、店家、營業時間和備案。' },
-  { id: 'price',     nav: '出團日期與價格', title: '出團日期與價格', en: 'Departures & Price', lead: '一個行程、兩個梯次：2 月是主力團，6 月底是備案。下方有每人費用明細。' },
-  { id: 'stay',      nav: '住宿交通',       title: '住宿與交通',     en: 'Hotel & Transport', lead: '五天都住同一間飯店，不用每天搬行李。' },
-  { id: 'spots',     nav: '店家一覽',       title: '行程店家一覽',   en: 'Shops & Cafés', lead: '五天會去的潮牌、咖啡廳、餐廳和酒吧，可以依分類、天數或關鍵字查。' },
-  { id: 'notes',     nav: '參團說明',       title: '參團說明',       en: 'Travel Notes', lead: '氣候與穿搭、出發前準備，以及行程的注意事項。' },
+  { id: 'itinerary', nav: '每日行程',       title: '每日行程',       en: 'Itinerary', lead: '點開每一天，看當天去哪裡。' },
+  { id: 'price',     nav: '出團日期與價格', title: '出團日期與價格', en: 'Departures & Price', lead: '2 月主力團，6 月底備案團。' },
+  { id: 'stay',      nav: '住宿交通',       title: '住宿與交通',     en: 'Hotel & Transport', lead: '四晚都住心齋橋，不用換飯店。' },
+  { id: 'spots',     nav: '店家一覽',       title: '行程店家一覽',   en: 'Shops & Cafés', lead: '五天會去的潮牌、咖啡廳、餐廳和酒吧。' },
+  { id: 'notes',     nav: '參團說明',       title: '參團說明',       en: 'Travel Notes', lead: '出發前要知道的事。' },
 ];
 
 /* ---------- 服務亮點橫幅 ---------- */
@@ -81,10 +81,10 @@ const PHOTOS = {
 
 /* ---------- 行程特色（內容整理自 data.js 的行程） ---------- */
 const FEATURES = [
-  { day: 'Day 2', title: '南堀江潮牌一條街', text: 'Supreme、HOODS、BAPE、Carhartt WIP 都在立花通 Orange Street 上，街道寬，比心齋橋主街好逛。' },
-  { day: 'Day 1–5', title: '五天五間風格咖啡', text: 'Kith Treats、星巴克臻選、Brooklyn Roasting、OSA COFFEE、LiLo Coffee，每天換一種風格。' },
-  { day: 'Day 1–4', title: '燒肉放題與大阪燒', text: '17 樓夜景燒肉吃到飽、炭火燒肉力丸、千房道頓堀大樓店，40 人都坐得下。' },
-  { day: 'Day 4', title: '黑膠唱片與昭和老街', text: 'TOWER RECORDS 茶屋町黑膠館，下午走進中崎町木造長屋與古著小店。' },
+  { day: 'Day 2', title: '南堀江潮牌一條街', text: 'Supreme、BAPE、HOODS 一條街逛完。' },
+  { day: 'Day 1–5', title: '五天五間風格咖啡', text: '每天一間，從潮牌甜品到職人手沖。' },
+  { day: 'Day 1–4', title: '燒肉放題與大阪燒', text: '17 樓夜景燒肉、炭火燒肉吃到飽。' },
+  { day: 'Day 4', title: '黑膠唱片與昭和老街', text: 'TOWER RECORDS 黑膠館＋中崎町古著。' },
 ];
 
 /* ---------- 出團梯次（季節設定在 data.js 的 seasonConfig） ---------- */
@@ -95,7 +95,7 @@ const DEPARTURES = {
     statusType: 'open',
     returnDate: '2027/02/19（五）',
     departDate: '2027/02/15（一）',
-    note: '農曆春節收假後的平日離峰，機票與 40 人團體房最好談。',
+    note: '春節後平日離峰，機票房價最好談。',
   },
   summer: {
     kind: '梅雨備案團',
@@ -103,7 +103,7 @@ const DEPARTURES = {
     statusType: 'backup',
     returnDate: '2027/07/02（五）',
     departDate: '2027/06/28（一）',
-    note: '訂房或期末考檔期需要調整時的備選梯次。',
+    note: '檔期需要調整時的備選梯次。',
   },
 };
 
@@ -124,9 +124,9 @@ const STAY = {
     mapQuery: '相鐵 FRESA INN 大阪心齋橋',
   },
   transport: [
-    { title: '機場接送', text: '45 人座大型遊覽車專車，關西機場 ⇄ 心齋橋約 65 分鐘。單程報價 ¥80,000–130,000，40 人分攤來回每人約 ¥4,500–5,500。' },
-    { title: '市區地鐵', text: '大阪 Metro 單程 3km 內 ¥190、3–7km ¥240、7–13km ¥290，手機 Suica／ICOCA 或感應式信用卡可直接刷。' },
-    { title: '計程車', text: '起跳 1.2 公里內最高 ¥600，之後每 231 公尺加 ¥100；22:00–05:00 加收 20%；GO App 叫車另加約 ¥500。每車限乘 4 人。' },
+    { title: '機場接送', short: '45 人座專車直達飯店，約 65 分鐘。', text: '45 人座大型遊覽車專車，關西機場 ⇄ 心齋橋約 65 分鐘。單程報價 ¥80,000–130,000，40 人分攤來回每人約 ¥4,500–5,500。' },
+    { title: '市區地鐵', short: '手機刷 ICOCA／Suica，單程 ¥190 起。', text: '大阪 Metro 單程 3km 內 ¥190、3–7km ¥240、7–13km ¥290，手機 Suica／ICOCA 或感應式信用卡可直接刷。' },
+    { title: '計程車', short: '4 人一車，深夜回飯店最方便。', text: '起跳 1.2 公里內最高 ¥600，之後每 231 公尺加 ¥100；22:00–05:00 加收 20%；GO App 叫車另加約 ¥500。每車限乘 4 人。' },
   ],
   taxiLabels: {
     day_short: '白天卸重｜南堀江／美國村 → 心齋橋飯店（約 1.2km）',

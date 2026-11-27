@@ -247,19 +247,22 @@
 
           <div class="day__photos">${(PHOTOS.days[i] || []).map((p) => photo(p)).join('')}</div>
 
-          <div class="timeline">
-            ${d.periods.map((p) => `
-              <section class="period">
-                <h4 class="period__name">${esc(p.period)}</h4>
-                ${p.items.map(renderStop).join('')}
-              </section>`).join('')}
-          </div>
-
-          ${d.hotelDropoff ? `
-            <aside class="rest">
-              <b>回飯店休息｜${esc(d.hotelDropoff.time)}</b>
-              <p>${esc(d.hotelDropoff.note)}</p>
-            </aside>` : ''}
+          <!-- 詳細時間表（營業時間、地址、費用、備案）預設收起來，先看重點 -->
+          <details class="more">
+            <summary><span class="more__open">查看詳細時間表</span><span class="more__close">收起詳細時間表</span></summary>
+            <div class="timeline">
+              ${d.periods.map((p) => `
+                <section class="period">
+                  <h4 class="period__name">${esc(p.period)}</h4>
+                  ${p.items.map(renderStop).join('')}
+                </section>`).join('')}
+            </div>
+            ${d.hotelDropoff ? `
+              <aside class="rest">
+                <b>回飯店休息｜${esc(d.hotelDropoff.time)}</b>
+                <p>${esc(d.hotelDropoff.note)}</p>
+              </aside>` : ''}
+          </details>
         </div>
       </details>`).join('');
 
@@ -281,7 +284,6 @@
   function renderItineraryDates() {
     const dates = seasonConfig[state.season].dates;
     $$('[data-day-date]').forEach((el) => { el.textContent = dates[Number(el.dataset.dayDate)] || ''; });
-    $('#season-tip').textContent = seasonConfig[state.season].itineraryTip;
   }
 
   /* ================= 出團日期與價格 ================= */
@@ -309,9 +311,7 @@
         </div>`;
     }).join('');
     $$('#departures [data-season]').forEach((b) => b.addEventListener('click', () => setSeason(b.dataset.season)));
-    $('#departures-note').textContent = price.isEstimate
-      ? '團費尚未定案，目前顯示廉航方案的預算試算金額。選擇梯次後，每日行程的日期和參團說明的穿搭建議會跟著切換。'
-      : '選擇梯次後，每日行程的日期和參團說明的穿搭建議會跟著切換。';
+    $('#departures-note').textContent = price.isEstimate ? '＊團費尚未定案，目前為廉航方案的預算試算。' : '';
   }
 
   function renderCost() {
@@ -340,7 +340,6 @@
       <div class="includes__col includes__col--no">
         <h3>費用不包含</h3>
         <ul>${INCLUDES.excludes.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
-        <p class="note">${esc(INCLUDES.note)}</p>
       </div>`;
     $$('[data-plan]').forEach((b) => b.addEventListener('click', () => { state.plan = b.dataset.plan; renderCost(); }));
   }
@@ -361,9 +360,16 @@
       </div>`;
 
     $('#transport').innerHTML = STAY.transport.map((t) => `
-      <article class="transport__item"><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></article>`).join('');
+      <article class="transport__item">
+        <h3>${esc(t.title)}</h3>
+        <p>${esc(t.short || t.text)}</p>
+        ${t.short ? `<details class="backup"><summary>詳細說明</summary><p>${esc(t.text)}</p></details>` : ''}
+      </article>`).join('');
 
     $('#taxi').innerHTML = `
+      <details class="more more--left">
+      <summary><span class="more__open">查看計程車參考車資</span><span class="more__close">收起計程車參考車資</span></summary>
+      <div class="table-scroll">
       <table class="data-table">
         <caption>計程車參考車資（4 人一車）</caption>
         <thead><tr><th>路段</th><th class="num">一車總車資</th><th class="num">每人分攤</th></tr></thead>
@@ -372,7 +378,9 @@
             <tr><td>${esc(STAY.taxiLabels[k] || k)}</td><td class="num">${esc(taxiRoutes[k].total)}</td><td class="num">${esc(taxiRoutes[k].perPerson)}</td></tr>`).join('')}
         </tbody>
       </table>
-      <p class="note">${esc(STAY.taxiNote)}</p>`;
+      </div>
+      <p class="note">${esc(STAY.taxiNote)}</p>
+      </details>`;
   }
 
   /* ================= 店家一覽 ================= */
@@ -411,7 +419,7 @@
         <p class="spot__top"><span>${esc(SPOT_CATEGORIES[item.category] || '')}</span><span class="day-no day-no--sm">${esc(item.day)}</span></p>
         <h3 class="spot__name">${esc(item.name)}</h3>
         <p>${esc(item.desc)}</p>
-        <p class="spot__meta">${esc(item.area)}<br>${esc(item.hours)}</p>
+        <p class="spot__meta">${esc(item.area)}・${esc(item.hours)}</p>
         <a class="map-link" href="${mapUrl(item.map)}" target="_blank" rel="noopener">${ICON.pin}Google 地圖</a>
       </article>`).join('') : `<p class="empty">沒有符合條件的店家，換個關鍵字或分類試試。</p>`;
   }
@@ -436,7 +444,7 @@
       </ul>`;
 
     $('#notes').innerHTML =
-      acc('notes-climate', '氣候與穿搭', '', true) +
+      acc('notes-climate', '氣候與穿搭', '', false) +
       acc('notes-tip', '行程小提醒', '', false) +
       acc('notes-steps', '出發前準備', steps, false) +
       acc('notes-about', '費用與資料說明', about, false);

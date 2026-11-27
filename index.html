@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
 
@@ -89,7 +89,6 @@
       <div class="wrap">
         <div class="season-switch" data-season-switch></div>
         <div class="itinerary-tools">
-          <p class="tip" id="season-tip"></p>
           <button type="button" class="text-btn" id="toggle-days">全部展開</button>
         </div>
         <div class="days" id="days"></div>
@@ -111,7 +110,7 @@
     <div class="section section--wash">
       <div class="wrap">
         <h2 class="section-title">費用說明</h2>
-        <p class="section-lead">每人費用明細。可以切換廉航與傳統航空兩種方案比較。</p>
+        <p class="section-lead">可切換廉航與傳統航空比較。</p>
         <div class="segmented" role="group" aria-label="航空方案">
           <button type="button" data-plan="lcc" aria-pressed="true">廉航超值方案</button>
           <button type="button" data-plan="fsc" aria-pressed="false">傳統航空方案</button>
@@ -151,7 +150,7 @@
       <div class="wrap">
         <h2 class="section-title">交通方式</h2>
         <div class="transport" id="transport"></div>
-        <div class="table-scroll" id="taxi"></div>
+        <div id="taxi"></div>
       </div>
     </div>
   </section>
@@ -209,8 +208,8 @@
 
 <button type="button" class="to-top" id="to-top" aria-label="回到頁首"></button>
 
-<script src="js/data.js"></script>
-<script src="js/tour.js"></script>
-<script src="js/app.js"></script>
+<script src="js/data.js?v=3"></script>
+<script src="js/tour.js?v=3"></script>
+<script src="js/app.js?v=3"></script>
 </body>
 </html>
