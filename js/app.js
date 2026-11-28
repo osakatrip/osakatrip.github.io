@@ -161,8 +161,6 @@
     // 標題只在空白或「五天四夜」前換行，避免手機上斷在奇怪的地方
     $('#hero-title').innerHTML = esc(TOUR.title).replace(/(五天四夜|[0-9]+天[0-9]+夜)$/, '<wbr>$1');
     $('#hero-tagline').textContent = TOUR.tagline;
-    $('#hero-actions').innerHTML = PAGES.filter((p) => p.id !== 'home')
-      .map((p) => `<a class="btn-ghost" href="${pageHref(p.id)}">${esc(p.nav)}</a>`).join('');
   }
 
   /** 首頁「選擇出發梯次」卡片 */
